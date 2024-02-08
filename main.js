@@ -16,8 +16,19 @@ $(function() {
   const openOrCloseMenu = () => {
     const menu = document.getElementById("navBarMenu");
     const menuState = window.getComputedStyle(menu).display;
-    menu.style.display = menuState === 'flex' ? 'none' : 'flex';
-    
     const firstNavBarButtonBar = document.getElementById("firstNavBarButtonBar");
-    
+    const firstNavBarButtonBarState = window.getComputedStyle(firstNavBarButtonBar).display;
+
+    menu.style.display = menuState === 'flex' ? 'none' : 'flex';
+    firstNavBarButtonBar.style.display = firstNavBarButtonBarState === 'flex' ? 'none' : 'flex';
+
+  }
+
+
+  const launchWork = () => {
+       
+     setInterval(() => {
+       //logic   
+     }, 1000);
+   
   }

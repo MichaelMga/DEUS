@@ -32,3 +32,23 @@ $(function() {
      }, 1000);
    
   }
+
+ 
+ // login
+ 
+
+  const login = async () => {
+
+    const user = document.getElementById("user").value;
+
+    const userLogged = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ user})
+  });
+
+    console.log(userLogged);
+
+  }

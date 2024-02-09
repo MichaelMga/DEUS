@@ -4,6 +4,7 @@
     <head>
        <meta charset="utf-8"></meta>   
        <link rel="stylesheet" href="/style/main.css">
+       <link rel="stylesheet" href="/style/login.css">
     </head>
 
     <body>
@@ -18,18 +19,21 @@
        </div>
        <div id="navBarMenu">
           <div id="navBarMenuCenterWrapper">
-            <a href="home.html">
+            <a href="http://localhost:3001" >
               <div class="homeLink">Menu principal</div>
             </a>
-            <a href="login.html">
+            <a onclick="logout()">
               <div class="homeLink">Déconnexion</div>
             </a>
           </div>
 
        </div>
-        <div style="margin-top: 7%; margin-left: 7%;">
-           <input id="user" placeholder="Votre adresse mail" type="text">
-           <button onclick="login()">Me connecter</button>
+        <div id="loginWrapper">
+           <div id="loginForm">
+             <input id="user" placeholder="Votre adresse mail" type="text">
+             <input id="password" placeholder="password" type="password">
+             <button onclick="login()">Me connecter</button>
+           </div>
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

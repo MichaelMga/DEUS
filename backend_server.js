@@ -38,16 +38,43 @@ app.post('/register', async (req, res) => {
         res.status(400);
     } else {
         const userHash = await hashValue(postData.user, 10);
+        const userPassword = await hashValue(postData.password, 10)
         
         if(await tryTofindUser(userHash)){
             res.status(400);            
         } else {
-            insertUser(userHash);
+            insertUser(userHash, userPassword);
             res.status(200);
         }
     }
 
 });
+
+
+app.post('/create-project', async (req, res) => {
+    const postData = req.body;
+
+    const user = postData?.user;
+    const projectName = postData?.projectName;
+
+    if(!user){
+        res.status(400);
+    } else {
+        const userHash = await hashValue(user, 10);
+        
+        if(await !tryTofindUser(userHash)){
+            res.status(400);            
+        } else {
+           if(await createProject(userHash, projectName)){
+             res.status(200);
+           } else {
+            res.status(400)
+           }
+        }
+    }
+
+})
+
 
 
 app.listen(3000, () => {
@@ -71,7 +98,7 @@ async function connectDB() {
     } 
 }
 
-const insertUser = async (user) => {
+const insertUser = async (user, password) => {
 
     try {
         if(!client){
@@ -79,7 +106,8 @@ const insertUser = async (user) => {
             return;
          }
      
-         await client.query('INSERT INTO users(mail) VALUES($1::text)', [user]);
+         await client.query('INSERT INTO users(mail, password) VALUES($1::text, $2::text)', [user, password]);
+         
     } catch(e) {
         console.log(e);
     }
@@ -110,5 +138,43 @@ const tryTofindUser = async (user) => {
     } catch(e) {
         console.log(e);
     }
+
+}
+
+
+const createProject = async (userMailHash, projectName) => {
+ 
+    try {
+        if(!client){
+            console.log("sorry, we could not reach your database");
+            return;
+         }
+
+        const result = await client.query('SELECT * FROM users WHERE mail=$1::text;', [userMailHash]);    
+        
+        const userId = result.rows.length ? result.rows[0]?.id : null;
+
+
+        if(!userId) {
+            return false;
+        }
+
+        const foundProject = await client.query('SELECT * FROM projects WHERE name=$1::text;', [projectName]);    
+
+
+        if(foundProject.rows.length > 0){
+            console.log("this project name is already used");
+            return false;
+        }
+        
+
+
+     await client.query('INSERT INTO projects(user_id, name) VALUES ($1::integer, $2::text)', [userId, projectName] );
+
+    } catch(e) {
+        console.log(e);
+    }
+
+   
 
 }

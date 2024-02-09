@@ -17,7 +17,7 @@ app.get('/:page', (req, res) => {
 });
 
 const handleRequest = (req, res) => {
-  const page  = req.url === '/' ? 'main' : req.params.page;
+  const page  = req.url === '/' ? 'home' : req.params.page;
   const title = 'Express Page';
 
   console.log(page);

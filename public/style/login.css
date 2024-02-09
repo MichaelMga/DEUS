@@ -1,0 +1,47 @@
+#loginWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+
+#loginForm {
+  height: 300px;
+  width: 95%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#loginForm input, button{
+    height: 25%;
+    width: 75%;
+    border-radius: 15px;
+    border: SOLID 1px rgb(201, 201, 201);
+  }
+
+  #loginForm button{
+    width: 78%;
+  }
+
+
+  #loginForm input {
+    outline: none;
+    padding-left: 20px;
+    font-size: 20px;
+  }
+
+
+  @media (max-width: 1000px) {
+    #loginForm input {
+        font-size: 35px;
+      }
+}

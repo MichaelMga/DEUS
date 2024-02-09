@@ -20,13 +20,9 @@ const handleRequest = (req, res) => {
   const page  = req.url === '/' ? 'home' : req.params.page;
   const title = 'Express Page';
 
-  console.log(page);
-
-  // Render the view corresponding to the URL path
   res.render(page, { title });
 }
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

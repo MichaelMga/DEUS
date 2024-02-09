@@ -15,6 +15,31 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
+app.get('/projects', async (req, res) => {
+    const data = req.query;
+  
+    if(!data?.user){
+        console.log('quitting early')
+        res.status(400);
+    } else {
+        const userHash = await hashValue(data.user, 10);
+        
+        if(!await tryTofindUser(userHash)){
+            res.status(400);  
+            console.log("no")          
+        } else {
+            res.status(200);
+            const projects = await getProjects(userHash);  
+            res.send({
+                projects
+            })
+
+           
+        }
+    }
+
+});
+
 app.post('/login', async (req, res) => {
     const postData = req.body;
 
@@ -74,8 +99,6 @@ app.post('/create-project', async (req, res) => {
     }
 
 })
-
-
 
 app.listen(3000, () => {
     connectDB();
@@ -175,6 +198,36 @@ const createProject = async (userMailHash, projectName) => {
         console.log(e);
     }
 
+}
+
+
+
+const getProjects = async (userMailHash) => {
+
+    try {
+        if(!client){
+            console.log("sorry, we could not reach your database");
+            return;
+         }
+
+        const result = await client.query('SELECT * FROM users WHERE mail=$1::text;', [userMailHash]);    
+        
+        const userId = result.rows.length ? result.rows[0]?.id : null;
+
+
+        if(!userId) {
+            return false;
+        }
+
+        const foundProjects = await client.query('SELECT * FROM projects WHERE user_id=$1::integer;', [userId]);    
+
+        return foundProjects.rows;
+
+    } catch(e) {
+        console.log(e);
+    }
+
    
 
+   
 }

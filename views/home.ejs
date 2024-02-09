@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <head>
+       <meta charset="utf-8"></meta>   
+       <link rel="stylesheet" href="/style/main.css">
+       <link rel="stylesheet" href="/style/home.css">
+    </head>
+
+    <body>
+       <div id="navBar">
+        <a href="#" onclick="openOrCloseMenu()">
+          <div id="navBarButton">
+            <div id="firstNavBarButtonBar" class="navBarButtonBar"></div>
+            <div class="navBarButtonBar"></div>
+            <div class="navBarButtonBar"></div>
+          </div>
+        </a>
+       </div>
+       <div id="navBarMenu">
+          <div id="navBarMenuCenterWrapper">
+            <a href="home.html">
+              <div class="homeLink">Menu principal</div>
+            </a>
+            <a href="http://localhost:3001/login" onclick="logout()">
+              <div class="homeLink">Déconnexion</div>
+            </a>
+          </div>
+
+       </div>
+       <div id="homeWrapper">
+
+        <div id="homeProjectsWrapper">
+          <div class="projectContainer">
+          </div>
+          <div class="projectContainer">
+          </div>
+          <div class="projectContainer">
+          </div>
+       </div>
+
+      </div>
+      
+     <div id="projectCreationPanelWrapper">
+      <div id="projectCreationPanel">
+        <input type="text">
+        <button>Créer</button>
+        <button onclick="closeProjectCreationPanel()" id="projectCreationPanelClose">x</button>
+      </div>
+     </div>
+
+     
+     <div id="createProjectButtonWrapper" onclick="openProjectCreationPanel()">
+      +
+    </div>
+        
+        
+    </body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="/main.js"></script>
+    <script src="/home.js"></script>
+
+  </body>
+</html>
